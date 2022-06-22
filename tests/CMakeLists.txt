@@ -7,8 +7,6 @@
 # \brief    Builds the tests
 # \author   Basilio B. Fraguela <basilio.fraguela@udc.es>
 
-cmake_minimum_required( VERSION 2.8.7 )
-
 add_definitions( -DBZ_THREADSAFE )
 
 link_libraries( upcxx_depspawn depspawn )

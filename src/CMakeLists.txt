@@ -7,9 +7,6 @@
 # \brief    Builds the library
 # \author   Basilio B. Fraguela <basilio.fraguela@udc.es>
 
-cmake_minimum_required( VERSION 2.8.7 )
-
-
 option( UPCXX_DEPSPAWN_ATOMIC_EXACT_MATCH  "Use atomics for exact match" OFF )
 
 add_library( upcxx_depspawn STATIC upcxx_depspawn.cpp persistent_cache.cpp )

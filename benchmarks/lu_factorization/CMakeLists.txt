@@ -8,6 +8,7 @@
 # \brief    Builds the LU tests
 # \author   Basilio B. Fraguela <basilio.fraguela@udc.es>
 
-cmake_minimum_required( VERSION 2.8.7 )
-
 add_executable( lu_upcdsp lu.cpp dgetrf.cpp dgetrf_filtered.cpp dgetrf_seq.cpp )
+target_link_libraries( lu_upcdsp ${BLAS_LIBRARIES} )
+add_dependencies( benchmarks lu_upcdsp )
+

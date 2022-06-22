@@ -7,26 +7,16 @@
 # \brief    Builds the benchmarks provided
 # \author   Basilio B. Fraguela <basilio.fraguela@udc.es>
 
-cmake_minimum_required( VERSION 2.8.7 )
-
+set_property(DIRECTORY PROPERTY EXCLUDE_FROM_ALL ON)
 link_libraries( upcxx_depspawn depspawn )
 
 if(${UNIX})
   if(${APPLE})
     set( CMAKE_MACOSX_RPATH ON )
-	#Needed in my High Sierra
-	link_directories( /usr/local/lib )
   else(${APPLE})
     link_libraries( rt )
   endif(${APPLE})
 endif(${UNIX})
-
-if( EXISTS /opt/OpenBLAS )
-	include_directories( /opt/OpenBLAS/include )
-	link_directories( /opt/OpenBLAS/lib )
-endif()
-
-link_libraries( openblas )
 
 option( STACK_TILE "Allocate benchmark tiles in the stack" OFF )
 
@@ -49,6 +39,16 @@ target_compile_definitions( T0 PUBLIC UPCXX_DEPSPAWN_NO_CACHE )
 add_executable( gauss-seidel gauss-seidel.cpp )
 target_compile_definitions( gauss-seidel PUBLIC UPCXX_DEPSPAWN_NO_CACHE )
 
-add_subdirectory( cholesky )
-add_subdirectory( lu_factorization )
+add_custom_target(benchmarks)
+add_dependencies(benchmarks T0 gauss-seidel)
 
+#set(BLA_STATIC ON)
+#set(BLA_VENDOR OpenBLAS)
+find_package( BLAS )
+#message( "BLAS_LINKER_FLAGS  : " ${BLAS_LINKER_FLAGS})
+#message( "BLAS_LIBRARIES  : " ${BLAS_LIBRARIES})
+
+if(BLAS_FOUND)
+  add_subdirectory( cholesky )
+  add_subdirectory( lu_factorization )
+endif(BLAS_FOUND)
