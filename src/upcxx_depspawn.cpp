@@ -390,11 +390,11 @@ namespace depspawn {
     void catch_function(int signal)
     { char file_name[32], buffer[2048];
       const char *cp;
-    
+
       sprintf(file_name, "term_%d_%d.deb", NRanks, MyRank);
 
-      const int outfile = open(file_name, O_CREAT|O_TRUNC|O_WRONLY);
-      
+      const int outfile = open(file_name, O_CREAT|O_TRUNC|O_WRONLY, S_IRUSR|S_IWUSR);
+
       switch (Upcxx_Waiting) {
         case Upcxx_Waiting_t::No:
           cp = "No";
@@ -406,7 +406,7 @@ namespace depspawn {
           cp = "Final";
           break;
       }
-      
+
       char * buff = static_cast<char *>(buffer);
       buff += sprintf(buff, "Upcxx_Waiting=%s Upcxx_local_live_tasks=%d", cp, static_cast<int>(Upcxx_local_live_tasks));
       DEPSPAWN_DEBUGACTION(buff += sprintf(buff, " Oldest_local_task_found=%d", Oldest_local_task_found));
@@ -415,14 +415,14 @@ namespace depspawn {
       for(int j = 0; j < NRanks; j++) {
         buff += sprintf(buff, "%d ", Oldest_task[j]);
       }
-      
+
       *(buff - 1) = ']';
       *buff++ = '\n';
 
       size_t result = write(outfile, buffer, buff - buffer);
-      
+
       print_oldestLocalLiveWorkitem(oldestLocalLiveWorkitem(), buffer, outfile);
-      
+
       close(outfile);
 
       if(signal == SIGTERM) {

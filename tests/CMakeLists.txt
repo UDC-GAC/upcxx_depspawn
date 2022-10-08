@@ -11,13 +11,13 @@ add_definitions( -DBZ_THREADSAFE )
 
 link_libraries( upcxx_depspawn depspawn )
 
-if(${UNIX})
-  if(${APPLE})
+if(UNIX)
+  if(APPLE)
     set( CMAKE_MACOSX_RPATH ON )
-  else(${APPLE})
+  else()
     link_libraries( rt )
-  endif(${APPLE})
-endif(${UNIX})
+  endif()
+endif()
 
 set( TESTBINARIES test1 test2 test3 testDistrBlockMatrix testCacheBasic testCache test_args test_api test_central bench_upcxx_depspawn )
 

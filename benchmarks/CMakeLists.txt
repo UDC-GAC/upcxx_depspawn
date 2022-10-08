@@ -10,13 +10,13 @@
 set_property(DIRECTORY PROPERTY EXCLUDE_FROM_ALL ON)
 link_libraries( upcxx_depspawn depspawn )
 
-if(${UNIX})
-  if(${APPLE})
+if(UNIX)
+  if(APPLE)
     set( CMAKE_MACOSX_RPATH ON )
-  else(${APPLE})
+  else()
     link_libraries( rt )
-  endif(${APPLE})
-endif(${UNIX})
+  endif()
+endif()
 
 option( STACK_TILE "Allocate benchmark tiles in the stack" OFF )
 
@@ -49,6 +49,9 @@ find_package( BLAS )
 #message( "BLAS_LIBRARIES  : " ${BLAS_LIBRARIES})
 
 if(BLAS_FOUND)
+  if(APPLE)
+	  include_directories("/Applications/Xcode.app//Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/System/Library/Frameworks/Accelerate.framework/Versions/A/Frameworks/vecLib.framework/Versions/A/Headers")
+  endif()
   add_subdirectory( cholesky )
   add_subdirectory( lu_factorization )
 endif(BLAS_FOUND)

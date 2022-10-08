@@ -9,8 +9,10 @@
  * [CMake](https://cmake.org)
  * [Boost](https://www.boost.org)
  * [DepSpawn](https://github.com/fraguela/depspawn)
- * [UPC++ 1.0](https://bitbucket.org/berkeleylab/upcxx/wiki/Home) The library has been built and tested on the [Release 2021.3.0](https://bitbucket.org/berkeleylab/upcxx/downloads/upcxx-2021.3.0.tar.gz)
- * Optional: a BLAS library if you want to compile some linear algebra benchmarks
+ * [UPC++ 1.0](https://bitbucket.org/berkeleylab/upcxx/wiki/Home) The library has been built and tested on
+ 	* [Release 2021.3.0](https://bitbucket.org/berkeleylab/upcxx/downloads/upcxx-2021.3.0.tar.gz)
+ 	* [Release 2022.9.0](https://bitbucket.org/berkeleylab/upcxx/downloads/upcxx-2022.9.0.tar.gz)
+ * Optional: a BLAS library if you want to compile the linear algebra benchmarks
 
 ####Hardware
 
